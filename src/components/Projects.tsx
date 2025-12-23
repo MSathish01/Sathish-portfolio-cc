@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, ExternalLink, Sparkles, FolderOpen } from "lucide-react";
+import { Github, FolderOpen } from "lucide-react";
 import { useState } from "react";
 import { portfolioData } from "@/data/portfolio";
 
@@ -14,17 +14,6 @@ const categoryColors: Record<string, string> = {
     "Utility": "bg-cyan-500/10 text-cyan-500 dark:text-cyan-400",
     "Games": "bg-pink-500/10 text-pink-500 dark:text-pink-400",
     "Portfolio": "bg-yellow-500/10 text-yellow-500 dark:text-yellow-400",
-};
-
-const categoryIcons: Record<string, string> = {
-    "AI/ML": "🤖",
-    "Blockchain": "🔗",
-    "Full Stack": "💻",
-    "Security": "🔐",
-    "Developer Tools": "🛠️",
-    "Utility": "📱",
-    "Games": "🎮",
-    "Portfolio": "🌐",
 };
 
 export default function Projects() {
@@ -96,18 +85,12 @@ export default function Projects() {
                             
                             <div className="p-6">
                                 {/* Top Row */}
-                                <div className="flex items-start justify-between mb-4">
-                                    <div className="flex items-center gap-3">
-                                        <span className="text-2xl">{categoryIcons[project.category] || "📁"}</span>
-                                        <div>
-                                            <span className={`inline-block text-xs font-medium px-2 py-1 rounded-md ${categoryColors[project.category] || "bg-gray-500/10 text-gray-500"}`}>
-                                                {project.category}
-                                            </span>
-                                        </div>
-                                    </div>
+                                <div className="flex items-start justify-between mb-3">
+                                    <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-md ${categoryColors[project.category] || "bg-gray-500/10 text-gray-500"}`}>
+                                        {project.category}
+                                    </span>
                                     {project.isMajor && (
-                                        <span className="flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
-                                            <Sparkles size={12} />
+                                        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
                                             Featured
                                         </span>
                                     )}
@@ -141,24 +124,15 @@ export default function Projects() {
                                 </div>
 
                                 {/* Actions */}
-                                <div className="flex gap-3 pt-4 border-t border-border">
+                                <div className="pt-4 border-t border-border">
                                     <a
                                         href={project.github}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-secondary hover:bg-secondary/80 text-secondary-foreground text-sm font-medium transition-colors"
+                                        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors"
                                     >
                                         <Github size={16} />
-                                        Code
-                                    </a>
-                                    <a
-                                        href={project.github}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors"
-                                    >
-                                        <ExternalLink size={16} />
-                                        View
+                                        View on GitHub
                                     </a>
                                 </div>
                             </div>

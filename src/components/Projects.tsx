@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Github, FolderOpen } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Github, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { portfolioData } from "@/data/portfolio";
 
@@ -26,25 +26,6 @@ export default function Projects() {
         ? [...majorProjects, ...otherProjects]
         : majorProjects;
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1
-            }
-        }
-    };
-
-    const cardVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { 
-            opacity: 1, 
-            y: 0,
-            transition: { duration: 0.4, ease: "easeOut" as const }
-        }
-    };
-
     return (
         <section id="projects" className="py-20 bg-secondary/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -56,117 +37,106 @@ export default function Projects() {
                     transition={{ duration: 0.5 }}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                        <FolderOpen size={16} />
-                        My Work
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-bold mb-3">Featured Projects</h2>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-3">Projects</h2>
                     <p className="text-muted-foreground max-w-2xl mx-auto">
-                        A collection of {portfolioData.projects.length} projects showcasing my expertise in AI/ML, Full Stack Development, and Blockchain
+                        {portfolioData.projects.length} projects in AI/ML, Full Stack & Blockchain
                     </p>
+                    <div className="w-20 h-1 bg-primary mx-auto rounded-full mt-4" />
                 </motion.div>
 
                 {/* Projects Grid */}
-                <motion.div 
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                >
-                    {visibleProjects.map((project, index) => (
-                        <motion.article
-                            key={index}
-                            variants={cardVariants}
-                            className="group relative bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
-                        >
-                            {/* Card Header with gradient */}
-                            <div className={`h-2 w-full ${project.isMajor ? 'bg-gradient-to-r from-primary to-teal-400' : 'bg-gradient-to-r from-muted to-muted-foreground/20'}`} />
-                            
-                            <div className="p-6">
-                                {/* Top Row */}
-                                <div className="flex items-start justify-between mb-3">
-                                    <span className={`inline-block text-xs font-medium px-2.5 py-1 rounded-md ${categoryColors[project.category] || "bg-gray-500/10 text-gray-500"}`}>
-                                        {project.category}
-                                    </span>
-                                    {project.isMajor && (
-                                        <span className="text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
-                                            Featured
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <AnimatePresence mode="popLayout">
+                        {visibleProjects.map((project, index) => (
+                            <motion.article
+                                key={project.title}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                transition={{ duration: 0.3, delay: index * 0.05 }}
+                                layout
+                                className="group relative bg-card rounded-xl border border-border overflow-hidden hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+                            >
+                                {/* Card Header */}
+                                <div className={`h-1.5 w-full ${project.isMajor ? 'bg-gradient-to-r from-primary to-teal-400' : 'bg-muted'}`} />
+                                
+                                <div className="p-5">
+                                    {/* Category & Featured Badge */}
+                                    <div className="flex items-center justify-between mb-3">
+                                        <span className={`text-xs font-medium px-2 py-1 rounded ${categoryColors[project.category] || "bg-gray-500/10 text-gray-500"}`}>
+                                            {project.category}
                                         </span>
-                                    )}
-                                </div>
+                                        {project.isMajor && (
+                                            <span className="text-xs font-medium px-2 py-1 rounded bg-primary/10 text-primary">
+                                                ★ Featured
+                                            </span>
+                                        )}
+                                    </div>
 
-                                {/* Title */}
-                                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
-                                    {project.title}
-                                </h3>
+                                    {/* Title */}
+                                    <h3 className="text-base font-bold mb-2 group-hover:text-primary transition-colors line-clamp-1">
+                                        {project.title}
+                                    </h3>
 
-                                {/* Description */}
-                                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                                    {project.description}
-                                </p>
+                                    {/* Description */}
+                                    <p className="text-sm text-muted-foreground mb-4 line-clamp-2 min-h-[2.5rem]">
+                                        {project.description}
+                                    </p>
 
-                                {/* Tech Stack */}
-                                <div className="flex flex-wrap gap-1.5 mb-5">
-                                    {project.tech.split(", ").slice(0, 3).map((tech, i) => (
-                                        <span
-                                            key={i}
-                                            className="text-xs font-medium px-2 py-1 rounded-md bg-secondary text-secondary-foreground"
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                    {project.tech.split(", ").length > 3 && (
-                                        <span className="text-xs font-medium px-2 py-1 rounded-md bg-secondary text-muted-foreground">
-                                            +{project.tech.split(", ").length - 3}
-                                        </span>
-                                    )}
-                                </div>
+                                    {/* Tech Stack */}
+                                    <div className="flex flex-wrap gap-1 mb-4">
+                                        {project.tech.split(", ").slice(0, 3).map((tech, i) => (
+                                            <span
+                                                key={i}
+                                                className="text-xs px-2 py-0.5 rounded bg-secondary text-secondary-foreground"
+                                            >
+                                                {tech}
+                                            </span>
+                                        ))}
+                                        {project.tech.split(", ").length > 3 && (
+                                            <span className="text-xs px-2 py-0.5 rounded bg-secondary text-muted-foreground">
+                                                +{project.tech.split(", ").length - 3}
+                                            </span>
+                                        )}
+                                    </div>
 
-                                {/* Actions */}
-                                <div className="pt-4 border-t border-border">
+                                    {/* GitHub Button */}
                                     <a
                                         href={project.github}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors"
+                                        className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-foreground/5 hover:bg-primary hover:text-primary-foreground border border-border hover:border-primary text-sm font-medium transition-all"
                                     >
                                         <Github size={16} />
                                         View on GitHub
                                     </a>
                                 </div>
-                            </div>
-                        </motion.article>
-                    ))}
-                </motion.div>
+                            </motion.article>
+                        ))}
+                    </AnimatePresence>
+                </div>
 
-                {/* Show More Button */}
+                {/* Show More/Less Button */}
                 {otherProjects.length > 0 && (
-                    <motion.div 
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        className="text-center mt-12"
-                    >
+                    <div className="text-center mt-10">
                         <button
                             type="button"
-                            onClick={() => setShowAll((prev) => !prev)}
-                            aria-expanded={showAll}
-                            className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-card border-2 border-border hover:border-primary text-foreground hover:text-primary transition-all font-medium"
+                            onClick={() => setShowAll(!showAll)}
+                            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-medium transition-all shadow-lg shadow-primary/25 hover:shadow-primary/40"
                         >
                             {showAll ? (
                                 <>
-                                    <span>Show Featured Only</span>
-                                    <span className="text-xs px-2 py-0.5 rounded-full bg-muted">{majorProjects.length}</span>
+                                    <ChevronUp size={18} />
+                                    Show Less
                                 </>
                             ) : (
                                 <>
-                                    <span>View All Projects</span>
-                                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">+{otherProjects.length} more</span>
+                                    <ChevronDown size={18} />
+                                    Show All {portfolioData.projects.length} Projects
                                 </>
                             )}
                         </button>
-                    </motion.div>
+                    </div>
                 )}
             </div>
         </section>

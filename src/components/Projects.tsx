@@ -1,26 +1,35 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Code2, ExternalLink, Sparkles } from "lucide-react";
+import { Github, ExternalLink, Sparkles, FolderOpen } from "lucide-react";
 import { useState } from "react";
 import { portfolioData } from "@/data/portfolio";
-import SpotlightCard from "@/components/SpotlightCard";
 
 const categoryColors: Record<string, string> = {
-    "AI/ML": "bg-purple-500/20 text-purple-400 border-purple-500/30",
-    "Blockchain": "bg-orange-500/20 text-orange-400 border-orange-500/30",
-    "Full Stack": "bg-blue-500/20 text-blue-400 border-blue-500/30",
-    "Security": "bg-red-500/20 text-red-400 border-red-500/30",
-    "Developer Tools": "bg-green-500/20 text-green-400 border-green-500/30",
-    "Utility": "bg-cyan-500/20 text-cyan-400 border-cyan-500/30",
-    "Games": "bg-pink-500/20 text-pink-400 border-pink-500/30",
-    "Portfolio": "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
+    "AI/ML": "bg-purple-500/10 text-purple-500 dark:text-purple-400",
+    "Blockchain": "bg-orange-500/10 text-orange-500 dark:text-orange-400",
+    "Full Stack": "bg-blue-500/10 text-blue-500 dark:text-blue-400",
+    "Security": "bg-red-500/10 text-red-500 dark:text-red-400",
+    "Developer Tools": "bg-green-500/10 text-green-500 dark:text-green-400",
+    "Utility": "bg-cyan-500/10 text-cyan-500 dark:text-cyan-400",
+    "Games": "bg-pink-500/10 text-pink-500 dark:text-pink-400",
+    "Portfolio": "bg-yellow-500/10 text-yellow-500 dark:text-yellow-400",
+};
+
+const categoryIcons: Record<string, string> = {
+    "AI/ML": "🤖",
+    "Blockchain": "🔗",
+    "Full Stack": "💻",
+    "Security": "🔐",
+    "Developer Tools": "🛠️",
+    "Utility": "📱",
+    "Games": "🎮",
+    "Portfolio": "🌐",
 };
 
 export default function Projects() {
     const [showAll, setShowAll] = useState(false);
     
-    // Get major projects first, then others
     const majorProjects = portfolioData.projects.filter((p) => p.isMajor);
     const otherProjects = portfolioData.projects.filter((p) => !p.isMajor);
     
@@ -28,102 +37,136 @@ export default function Projects() {
         ? [...majorProjects, ...otherProjects]
         : majorProjects;
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1
+            }
+        }
+    };
+
+    const cardVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.4, ease: "easeOut" as const }
+        }
+    };
+
     return (
         <section id="projects" className="py-20 bg-secondary/30">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
-                    className="text-center mb-16"
+                    className="text-center mb-12"
                 >
-                    <h2 className="text-3xl font-bold mb-4">Featured Projects</h2>
-                    <p className="text-muted-foreground mb-4">
-                        {majorProjects.length} major projects • {portfolioData.projects.length} total
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+                        <FolderOpen size={16} />
+                        My Work
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold mb-3">Featured Projects</h2>
+                    <p className="text-muted-foreground max-w-2xl mx-auto">
+                        A collection of {portfolioData.projects.length} projects showcasing my expertise in AI/ML, Full Stack Development, and Blockchain
                     </p>
-                    <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Projects Grid */}
+                <motion.div 
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                >
                     {visibleProjects.map((project, index) => (
-                        <motion.div
+                        <motion.article
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                            variants={cardVariants}
+                            className="group relative bg-card rounded-2xl border border-border overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
                         >
-                            <SpotlightCard className="h-full hover:border-primary/50 transition-colors hover:shadow-xl group">
-                                <div className="p-6 h-full flex flex-col">
-                                    <div className="flex justify-between items-start mb-4">
-                                        <div className="flex items-center gap-2">
-                                            <div className="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                                                <Code2 size={20} />
-                                            </div>
-                                            {project.isMajor && (
-                                                <span className="flex items-center gap-1 text-xs font-medium px-2 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
-                                                    <Sparkles size={12} />
-                                                    Major
-                                                </span>
-                                            )}
-                                        </div>
-                                        <div className="flex gap-2">
-                                            <a
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="p-2 rounded-lg bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all z-10"
-                                                aria-label="View Source"
-                                            >
-                                                <Github size={18} />
-                                            </a>
-                                            <a
-                                                href={project.github}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="p-2 rounded-lg bg-secondary/50 text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all z-10"
-                                                aria-label="Open Project"
-                                            >
-                                                <ExternalLink size={18} />
-                                            </a>
+                            {/* Card Header with gradient */}
+                            <div className={`h-2 w-full ${project.isMajor ? 'bg-gradient-to-r from-primary to-teal-400' : 'bg-gradient-to-r from-muted to-muted-foreground/20'}`} />
+                            
+                            <div className="p-6">
+                                {/* Top Row */}
+                                <div className="flex items-start justify-between mb-4">
+                                    <div className="flex items-center gap-3">
+                                        <span className="text-2xl">{categoryIcons[project.category] || "📁"}</span>
+                                        <div>
+                                            <span className={`inline-block text-xs font-medium px-2 py-1 rounded-md ${categoryColors[project.category] || "bg-gray-500/10 text-gray-500"}`}>
+                                                {project.category}
+                                            </span>
                                         </div>
                                     </div>
-
-                                    {/* Category Badge */}
-                                    <span className={`inline-flex self-start text-xs font-medium px-2.5 py-1 rounded-full border mb-3 ${categoryColors[project.category] || "bg-gray-500/20 text-gray-400 border-gray-500/30"}`}>
-                                        {project.category}
-                                    </span>
-
-                                    <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors line-clamp-1">
-                                        {project.title}
-                                    </h3>
-
-                                    <p className="text-sm text-muted-foreground mb-4 flex-grow line-clamp-3">
-                                        {project.description}
-                                    </p>
-
-                                    <div className="flex flex-wrap gap-1.5 mt-auto">
-                                        {project.tech.split(", ").slice(0, 4).map((tech, i) => (
-                                            <span
-                                                key={i}
-                                                className="text-xs font-medium px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground"
-                                            >
-                                                {tech}
-                                            </span>
-                                        ))}
-                                        {project.tech.split(", ").length > 4 && (
-                                            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">
-                                                +{project.tech.split(", ").length - 4}
-                                            </span>
-                                        )}
-                                    </div>
+                                    {project.isMajor && (
+                                        <span className="flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full bg-primary/10 text-primary">
+                                            <Sparkles size={12} />
+                                            Featured
+                                        </span>
+                                    )}
                                 </div>
-                            </SpotlightCard>
-                        </motion.div>
-                    ))}
-                </div>
 
+                                {/* Title */}
+                                <h3 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+                                    {project.title}
+                                </h3>
+
+                                {/* Description */}
+                                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                                    {project.description}
+                                </p>
+
+                                {/* Tech Stack */}
+                                <div className="flex flex-wrap gap-1.5 mb-5">
+                                    {project.tech.split(", ").slice(0, 3).map((tech, i) => (
+                                        <span
+                                            key={i}
+                                            className="text-xs font-medium px-2 py-1 rounded-md bg-secondary text-secondary-foreground"
+                                        >
+                                            {tech}
+                                        </span>
+                                    ))}
+                                    {project.tech.split(", ").length > 3 && (
+                                        <span className="text-xs font-medium px-2 py-1 rounded-md bg-secondary text-muted-foreground">
+                                            +{project.tech.split(", ").length - 3}
+                                        </span>
+                                    )}
+                                </div>
+
+                                {/* Actions */}
+                                <div className="flex gap-3 pt-4 border-t border-border">
+                                    <a
+                                        href={project.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-secondary hover:bg-secondary/80 text-secondary-foreground text-sm font-medium transition-colors"
+                                    >
+                                        <Github size={16} />
+                                        Code
+                                    </a>
+                                    <a
+                                        href={project.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-medium transition-colors"
+                                    >
+                                        <ExternalLink size={16} />
+                                        View
+                                    </a>
+                                </div>
+                            </div>
+                        </motion.article>
+                    ))}
+                </motion.div>
+
+                {/* Show More Button */}
                 {otherProjects.length > 0 && (
                     <motion.div 
                         initial={{ opacity: 0 }}
@@ -135,16 +178,17 @@ export default function Projects() {
                             type="button"
                             onClick={() => setShowAll((prev) => !prev)}
                             aria-expanded={showAll}
-                            className="group inline-flex items-center gap-2 px-8 py-3 rounded-full border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all font-medium"
+                            className="inline-flex items-center gap-3 px-8 py-3 rounded-full bg-card border-2 border-border hover:border-primary text-foreground hover:text-primary transition-all font-medium"
                         >
                             {showAll ? (
-                                <>Show Major Projects Only</>
+                                <>
+                                    <span>Show Featured Only</span>
+                                    <span className="text-xs px-2 py-0.5 rounded-full bg-muted">{majorProjects.length}</span>
+                                </>
                             ) : (
                                 <>
-                                    View All {portfolioData.projects.length} Projects
-                                    <span className="px-2 py-0.5 rounded-full bg-primary/20 text-xs group-hover:bg-primary-foreground/20">
-                                        +{otherProjects.length} more
-                                    </span>
+                                    <span>View All Projects</span>
+                                    <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary">+{otherProjects.length} more</span>
                                 </>
                             )}
                         </button>

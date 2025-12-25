@@ -1,95 +1,173 @@
-# Sathish M - Portfolio Website
+# 🚀 Sathish M - Portfolio
 
-A modern, responsive portfolio website built with Next.js 14, TypeScript, Tailwind CSS v4, and Framer Motion.
+<div align="center">
+
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38B2AC?style=for-the-badge&logo=tailwind-css)
+
+**A modern, responsive portfolio showcasing AI/ML projects and full-stack development skills**
+
+[🌐 Live Demo](https://sathishportfolio-80443.web.app) • [📂 GitHub](https://github.com/MSathish01/Sathish-portfolio-cc)
+
+</div>
+
+---
+
+## 📸 Preview
+
+| Light Mode | Dark Mode |
+|------------|-----------|
+| Modern, clean interface with teal accents | Elegant dark theme with smooth transitions |
+
+---
 
 ## ✨ Features
 
-- 🎨 **Modern Design** - Clean, professional AI/ML-inspired design with blue accents
-- 🌓 **Dark/Light Mode** - Seamless theme switching with system preference detection
-- 📱 **Fully Responsive** - Optimized for mobile, tablet, and desktop
-- ⚡ **Performance** - Built with Next.js for optimal performance
-- 🎭 **Smooth Animations** - Engaging micro-animations using Framer Motion
-- 🎯 **SEO Optimized** - Proper meta tags and semantic HTML
+| Feature | Description |
+|---------|-------------|
+| 🎨 **Modern UI** | Clean, professional design with teal/cyan accents |
+| 🌓 **Dark/Light Mode** | Seamless theme switching with system preference |
+| 📱 **Responsive** | Optimized for mobile, tablet, and desktop |
+| ⚡ **Fast** | Built with Next.js 16 & Turbopack for optimal performance |
+| 🎭 **Animations** | Smooth micro-animations using Framer Motion |
+| 🔍 **SEO Ready** | Proper meta tags and semantic HTML |
 
-## 🚀 Sections
+---
 
-- **Home** - Hero section with introduction and call-to-action
-- **About** - Personal details and quick stats
+## 📑 Sections
+
+- **Hero** - Introduction with profile image & social links
+- **About** - Personal bio and quick stats
 - **Skills** - Technical skills with animated badges
-- **Experience** - Timeline-based work experience
-- **Education** - Academic qualifications and achievements
-- **Projects** - Featured projects with GitHub links
-- **Achievements** - Awards and recognition
-- **Contact** - Contact form and information
+- **Experience** - Work experience timeline
+- **Education** - Academic qualifications
+- **Projects** - 14 projects with GitHub links (6 featured)
+- **Achievements** - Awards and hackathon wins
+- **Contact** - Contact information
 
-## 🛠 Built With
+---
 
-- **Framework**: Next.js 16
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS v4
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Theme**: next-themes
+## 🛠️ Tech Stack
 
-## 📦 Installation
+```
+Frontend        → Next.js 16, React 19, TypeScript 5
+Styling         → Tailwind CSS 4, CSS Variables
+Animations      → Framer Motion 12
+Icons           → Lucide React
+Theme           → next-themes
+Deployment      → Firebase Hosting
+```
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-# Clone repository
-git clone https://github.com/MSathish01/portfolio.git
-cd portfolio
+# Clone the repository
+git clone https://github.com/MSathish01/Sathish-portfolio-cc.git
+
+# Navigate to project
+cd Sathish-portfolio-cc
 
 # Install dependencies
 npm install
 
 # Run development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
 ```
+
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📦 Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+
+---
 
 ## 🌐 Deployment
 
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Go to [Vercel](https://vercel.com)
-3. Click "Import Project"
-4. Select your GitHub repository
-5. Click "Deploy"
-
-### Manual Deployment
+### Firebase Hosting (Current)
 
 ```bash
 # Build the project
 npm run build
 
-# The output will be in the `.next` folder
-# Deploy the entire project to your hosting provider
+# Deploy to Firebase
+firebase deploy --only hosting
 ```
 
-## 📝 Customization
-
-To customize the portfolio for your own use:
-
-1. **Update Personal Data**: Edit `src/data/portfolio.ts`
-2. **Add Resume**: Place your PDF in the `public` folder
-3. **Modify Styling**: Update colors in `src/app/globals.css`
-4. **Add Sections**: Create new components in `src/components/`
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
-## 📧 Contact
-
-- **Email**: thishrajam19@gmail.com
-- **LinkedIn**: [Sathish M](https://linkedin.com/in/sathish-m-6a5022331)
-- **GitHub**: [@MSathish01](https://github.com/MSathish01)
+**Live URL:** https://sathishportfolio-80443.web.app
 
 ---
 
-Built with ❤️ by Sathish M
+## 📁 Project Structure
+
+```
+portfolio/
+├── public/              # Static assets (images, resume PDF)
+├── src/
+│   ├── app/
+│   │   ├── globals.css  # Global styles & CSS variables
+│   │   ├── layout.tsx   # Root layout with providers
+│   │   └── page.tsx     # Main page component
+│   ├── components/      # React components
+│   │   ├── Hero.tsx
+│   │   ├── About.tsx
+│   │   ├── Skills.tsx
+│   │   ├── Experience.tsx
+│   │   ├── Education.tsx
+│   │   ├── Projects.tsx
+│   │   ├── Achievements.tsx
+│   │   ├── Contact.tsx
+│   │   └── ...
+│   └── data/
+│       └── portfolio.ts # Portfolio data (projects, skills, etc.)
+├── firebase.json        # Firebase config
+├── next.config.ts       # Next.js config
+└── package.json
+```
+
+---
+
+## ⚙️ Customization
+
+1. **Personal Data** → Edit `src/data/portfolio.ts`
+2. **Resume** → Replace `public/Sathish-Resume.pdf`
+3. **Images** → Update images in `public/` folder
+4. **Colors** → Modify CSS variables in `src/app/globals.css`
+5. **Components** → Customize in `src/components/`
+
+---
+
+## 👤 Author
+
+**Sathish M** - AI/ML Engineer & Full Stack Developer
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat&logo=linkedin)](https://linkedin.com/in/sathish-m-6a5022331)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=flat&logo=github)](https://github.com/MSathish01)
+[![Email](https://img.shields.io/badge/Email-Contact-EA4335?style=flat&logo=gmail)](mailto:sathiahrajam@gmail.com)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+
+**⭐ Star this repo if you found it helpful!**
+
+Built with ❤️ using Next.js & Tailwind CSS
+
+</div>

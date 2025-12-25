@@ -9,6 +9,8 @@ export const portfolioData = {
         github: "https://github.com/MSathish01",
         resume: "/Sathish-Resume.pdf",
     },
+    heroTagline:
+        "I build intelligent systems that solve real problems. Specializing in Machine Learning, NLP, and Full-Stack Development—turning data into impactful solutions.",
     summary:
         "I'm an AI/ML Engineer who loves turning complex data into smart, real-world solutions. From building NLP chatbots to predictive analytics dashboards, I enjoy the entire journey—from training models to deploying them as full-stack applications. My toolkit includes Python, Scikit-learn, Flask, React, and Node.js. What drives me? Creating AI solutions that actually make a difference and solve real problems for real people.",
     skills: [

@@ -39,7 +39,7 @@ export default function Hero() {
                             {portfolioData.personal.role}
                         </h2>
                         <p className="max-w-2xl mx-auto lg:mx-0 text-lg text-muted-foreground mb-10 leading-relaxed">
-                            {portfolioData.summary}
+                            {portfolioData.heroTagline}
                         </p>
 
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">

@@ -10,7 +10,7 @@ export const portfolioData = {
         resume: "/Sathish-Resume.pdf",
     },
     summary:
-        "AI/ML Engineer skilled in building machine learning models, NLP systems, predictive analytics applications, and full-stack AI-driven platforms. Strong in Python, Scikit-learn, Pandas, Flask, React, Node.js, and Docker. Passionate about delivering scalable ML solutions with measurable impact.",
+        "I'm an AI/ML Engineer who loves turning complex data into smart, real-world solutions. From building NLP chatbots to predictive analytics dashboards, I enjoy the entire journey—from training models to deploying them as full-stack applications. My toolkit includes Python, Scikit-learn, Flask, React, and Node.js. What drives me? Creating AI solutions that actually make a difference and solve real problems for real people.",
     skills: [
         "Machine Learning",
         "NLP",
